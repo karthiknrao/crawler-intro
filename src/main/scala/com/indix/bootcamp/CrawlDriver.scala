@@ -3,7 +3,7 @@ package com.indix.bootcamp
 import edu.uci.ics.crawler4j.crawler.{CrawlConfig, CrawlController}
 import edu.uci.ics.crawler4j.robotstxt.{RobotstxtConfig, RobotstxtServer}
 import edu.uci.ics.crawler4j.fetcher.PageFetcher
-import com.indix.bootcamp.crawler.FlipkartCrawler
+import com.indix.bootcamp.crawler.{FlipkartCrawler,JabongCrawler}
 import java.io.File
 
 object CrawlDriver extends App {
@@ -18,6 +18,8 @@ object CrawlDriver extends App {
   config.setMaxDepthOfCrawling(3)
   config.setMaxPagesToFetch(1000)
   config.setResumableCrawling(true) // Enable as required
+  config.setProxyHost("proxy.production.indix.tv")
+  config.setProxyPort(8080)
   // TODO: Add proxy support for your crawler to not get blocked.
   /*
     How Proxy works
@@ -46,6 +48,9 @@ object CrawlDriver extends App {
    * Start the crawl. This is a blocking operation, meaning that your code
    * will reach the line after this only when crawling is finished.
    */
-  controller.start(classOf[FlipkartCrawler], numberOfCrawlers)
-
+  try {
+    controller.start(classOf[JabongCrawler], numberOfCrawlers)
+  } catch {
+    case e:Exception => println("Exception: " + e.getMessage + "\n" + e.getStackTrace)
+  }
 }
