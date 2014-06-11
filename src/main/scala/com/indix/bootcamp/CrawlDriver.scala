@@ -42,7 +42,7 @@ object CrawlDriver extends App {
    * URLs that are fetched and then the crawler starts following links
    * which are found in these pages
    */
-  controller.addSeed("http://www.flipkart.com")
+  controller.addSeed("http://www.jabong.com/")
 
   /*
    * Start the crawl. This is a blocking operation, meaning that your code
